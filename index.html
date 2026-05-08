@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SnapBooth — Digital Photobooth</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@300;400;500&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- LANDING SCREEN -->
+  <div id="screen-landing" class="screen active">
+    <div class="landing-bg"></div>
+    <div class="landing-content">
+      <div class="logo-mark">◈</div>
+      <h1 class="landing-title">Snap<span>Booth</span></h1>
+      <p class="landing-sub">Digital Photobooth Experience</p>
+      <button class="btn-start" onclick="goTo('screen-frame')">Mulai Sesi →</button>
+    </div>
+    <div class="film-strip top"></div>
+    <div class="film-strip bottom"></div>
+  </div>
+
+  <!-- FRAME SELECTION SCREEN -->
+  <div id="screen-frame" class="screen">
+    <header class="app-header">
+      <button class="btn-back" onclick="goTo('screen-landing')">← Back</button>
+      <span class="step-label">01 / Pilih Frame</span>
+    </header>
+    <div class="frame-selection">
+      <h2 class="section-title">Pilih Tema Frame</h2>
+      <div class="frame-grid" id="frameGrid"></div>
+      <button class="btn-next" onclick="proceedToCamera()">Lanjut ke Kamera →</button>
+    </div>
+  </div>
+
+  <!-- CAMERA SCREEN -->
+  <div id="screen-camera" class="screen">
+    <header class="app-header">
+      <button class="btn-back" onclick="goTo('screen-frame')">← Frame</button>
+      <span class="step-label">02 / Ambil Foto</span>
+    </header>
+    <div class="camera-area">
+      <div class="camera-frame-wrapper" id="cameraFrameWrapper">
+        <div class="camera-overlay-frame" id="cameraOverlay"></div>
+        <video id="videoFeed" autoplay muted playsinline></video>
+        <canvas id="hiddenCanvas" style="display:none;"></canvas>
+      </div>
+      <div class="photo-strip-preview" id="photoStrip">
+        <p class="strip-hint">Foto akan muncul di sini</p>
+      </div>
+    </div>
+    <div class="camera-controls">
+      <div class="shot-counter"><span id="shotCount">0</span> / 4 foto</div>
+      <button class="btn-shoot" id="btnShoot" onclick="takePhoto()">
+        <span class="shutter-icon">◉</span>
+      </button>
+      <button class="btn-retake" onclick="retakeAll()">↺ Ulang</button>
+    </div>
+    <div id="countdown" class="countdown hidden"></div>
+  </div>
+
+  <!-- RESULT SCREEN -->
+  <div id="screen-result" class="screen">
+    <header class="app-header">
+      <button class="btn-back" onclick="goTo('screen-camera')">← Kamera</button>
+      <span class="step-label">03 / Hasil</span>
+    </header>
+    <div class="result-area">
+      <canvas id="resultCanvas"></canvas>
+      <div class="result-actions">
+        <button class="btn-download" onclick="downloadResult()">⬇ Download</button>
+        <button class="btn-restart" onclick="restartSession()">✦ Sesi Baru</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/frames.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
